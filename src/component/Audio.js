@@ -7,7 +7,12 @@
 import React, {Component} from 'react'
 import classNames from 'classnames'
 
-export default class Audio extends Component {
+export class Audio extends Component {
+  
+  static propTypes = {
+    src: React.PropTypes.string.isRequired
+  };
+  
   audio: HTMLMediaElement;
   state = {
     isPlaying: true
@@ -20,11 +25,19 @@ export default class Audio extends Component {
   
   handleClick() {
     if (this.audio.paused) {
-      this.audio.play();
       this.setState({isPlaying: true});
+      try{
+        this.audio.play();
+      }catch (e){
+        console.warn(e);
+      }
     } else {
-      this.audio.pause();
       this.setState({isPlaying: false});
+      try{
+        this.audio.pause();
+      }catch (e){
+        console.warn(e);
+      }
     }
   }
   
@@ -35,11 +48,12 @@ export default class Audio extends Component {
                 onClick={this.handleClick}>
           <i className="icon-note"/>
         </button>
-        
-        <audio loop ref={audio=>this.audio=audio}>
-          <source src={this.props.audioUrl} type="audio/mpeg"/>
+        <audio loop ref={audio=>this.audio=audio} autoPlay="true">
+          <source src={this.props.src} type="audio/mpeg"/>
         </audio>
       </div>
     )
   }
 }
+
+export default Audio;

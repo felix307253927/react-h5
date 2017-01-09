@@ -42,14 +42,14 @@ module.exports = {
         test  : /\.(png|jpg|gif|svg)(\?.*)?$/,
         loader: 'file',
         query : {
-          name: '/images/[name].[ext]?[hash]'
+          name: '/assets/images/[name].[ext]?[hash]'
         }
       },
       {
         test  : /\.(eot|ttf|woff)(\?.*)?$/,
         loader: 'url',
         query : {
-          name: '/libs/fonts/[name].[ext]?[hash]'
+          name: '/assets/libs/fonts/[name].[ext]?[hash]'
         }
       }
     ],
@@ -67,8 +67,7 @@ module.exports = {
       name: ['main','vendor']
     }),
     new CopyWebpackPlugin([
-      {context: 'src', from: 'images/**/*'},
-      {context: 'src', from: 'libs/**/*'},
+      {context: 'src', from: 'assets/**/*'},
       {context: 'src', from: '*.html'},
       {context: 'src', from: '*.ico'}
     ], {
@@ -86,7 +85,7 @@ module.exports = {
       // chunks        : ['main', 'vendor'],
       chunksSortMode: 'dependency'
     }),
-    new ExtractTextPlugin('css/[name].[hash].css'),
+    new ExtractTextPlugin('assets/css/[name].[hash].css'),
     new ProgressPlugin((percentage, msg) => {
       if (!percentage) return;
       let progress = percentage * 100 | 0;

@@ -17,23 +17,43 @@ import Animate from './Animate'
  };*/
 
 export class SwiperSlide extends Component {
+  hasRender: boolean = false;
   
   shouldComponentUpdate(nextProps) {
-    return nextProps.active === this.props.index
+    return nextProps.transition
+      && (
+        nextProps.active === this.props.index
+        || nextProps.prevActive === nextProps.index
+        || (!this.hasRender && nextProps.activated > this.props.index - 2)
+      );
+  }
+  
+  renderChild(children) {
+    if (this.props.activated > this.props.index - 2) {
+      this.hasRender = true;
+      return React.Children.map(children, (child, i) => {
+        if (child.type === Animate) {
+          return React.cloneElement(child, {
+            key       : 'ani-' + i,
+            slide     : this.props.index,
+            transition: this.props.active === this.props.index
+          })
+        } else {
+          return child;
+        }
+      })
+    } else {
+      return null;
+    }
   }
   
   render() {
-    console.log(this.props.index);
     return (
       <div className={classNames("swiper-slide", this.props.className)}>
-        {React.Children.map(this.props.children, (child, i) => {
-          return child.type === Animate ? React.cloneElement(child, {
-              key       : 'ani-' + i,
-              slide     : this.props.index,
-              transition: this.props.transition && this.props.active === this.props.index
-            }) : child;
-        })}
+        {this.renderChild(this.props.children)}
       </div>
     )
   }
 }
+
+export default SwiperSlide;

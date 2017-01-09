@@ -5,40 +5,20 @@
 
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import pureRender from 'pure-render-decorator'
 
-import {Swipe, SwiperSlide,Animate} from './component';
+import App from './pages/App';
 import './scss/main.scss';
 "use strict";
 
-let root = document.getElementById('root');
+let root    = document.getElementById('root');
 let loading = root.children.item(0);
-if(loading){
+if (loading) {
   loading.className = loading.className + ' zoomOutDown';
 }
 
 setTimeout(() => {
   ReactDOM.render(
-      <Swipe>
-        <SwiperSlide className="slide-1">
-          <Animate className="item-image" name="slideInLeft"/>
-          <Animate className="item-text" name="slideInRight" delay="0.3s">
-            I'm a coder!
-          </Animate>
-        </SwiperSlide>
-        <SwiperSlide className="slide-2">
-          <Animate className="item-image" name="slideInLeft"/>
-          <Animate className="item-text" name="slideInRight" delay="0.3s">
-            I'm a coder!
-          </Animate>
-        </SwiperSlide>
-        <SwiperSlide className="slide-3">
-          <Animate className="item-image" name="slideInLeft"/>
-          <Animate className="item-text" name="slideInRight" delay="0.3s">
-            I'm a coder!
-          </Animate>
-        </SwiperSlide>
-      </Swipe>
+    <App/>
     , root
   );
 }, 888);
