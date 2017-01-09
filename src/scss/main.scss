@@ -4,11 +4,6 @@
 @import "../assets/libs/css/animate.min.css";
 @import "~swiper/dist/css/swiper.min.css";
 
-// helpers
-@import "helpers/global-variables";
-@import "helpers/mixins";
-@import "helpers/functions";
-
 // base
 @import "base/reset";
 @import "base/base";
@@ -20,6 +15,7 @@
 @import "components/swiper-container";
 @import "components/swiper-slide";
 @import "components/icon-font";
+@import "components/alert";
 
 // sections
 @import "slides/slide-1";

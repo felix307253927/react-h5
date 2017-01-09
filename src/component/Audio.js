@@ -10,32 +10,51 @@ import classNames from 'classnames'
 export class Audio extends Component {
   
   static propTypes = {
-    src: React.PropTypes.string.isRequired
+    src  : React.PropTypes.string.isRequired,
+    delay: React.PropTypes.number
+  };
+  
+  static defaultProps = {
+    delay: 0
   };
   
   audio: HTMLMediaElement;
-  state = {
-    isPlaying: true
-  };
   
   constructor(props) {
     super(props);
     this.handleClick = ::this.handleClick;
+    if (!this.props.delay) {
+      this.state = {
+        isPlaying: true,
+        src      : this.props.src
+      };
+    } else {
+      state = {
+        isPlaying: true,
+        src      : ''
+      };
+    }
+  }
+  
+  componentDidMount() {
+    this.props.delay && setTimeout(() => {
+      this.setState({src: this.props.src})
+    }, this.props.delay)
   }
   
   handleClick() {
     if (this.audio.paused) {
       this.setState({isPlaying: true});
-      try{
+      try {
         this.audio.play();
-      }catch (e){
+      } catch (e) {
         console.warn(e);
       }
     } else {
       this.setState({isPlaying: false});
-      try{
+      try {
         this.audio.pause();
-      }catch (e){
+      } catch (e) {
         console.warn(e);
       }
     }
@@ -48,9 +67,7 @@ export class Audio extends Component {
                 onClick={this.handleClick}>
           <i className="icon-note"/>
         </button>
-        <audio loop ref={audio=>this.audio=audio} autoPlay="true">
-          <source src={this.props.src} type="audio/mpeg"/>
-        </audio>
+        <audio loop src={this.state.src} ref={audio=>this.audio=audio} autoPlay="true"/>
       </div>
     )
   }

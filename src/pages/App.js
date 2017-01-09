@@ -20,11 +20,7 @@ export default class App extends Component {
   }
   
   onSlide(index, length) {
-    if (index === length - 1) {
-      this.arrow.setVisible(false);
-    } else {
-      this.arrow.setVisible(true);
-    }
+    this.arrow.setVisible(index !== length - 1);
   }
   
   slideNext() {

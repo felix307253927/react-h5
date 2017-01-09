@@ -1,0 +1,19 @@
+
+.alert {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  .content {
+    position: absolute;
+    border: 4px double red;
+    margin-top: 5%;
+    padding: 2rem 0;
+    width: 60%;
+    left: 20%;
+    background-color: #fff;
+    border-radius: .5rem;
+  }
+}

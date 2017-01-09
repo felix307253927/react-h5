@@ -20,12 +20,11 @@ export class SwiperSlide extends Component {
   hasRender: boolean = false;
   
   shouldComponentUpdate(nextProps) {
-    return nextProps.transition
-      && (
-        nextProps.active === this.props.index
-        || nextProps.prevActive === nextProps.index
-        || (!this.hasRender && nextProps.activated > this.props.index - 2)
-      );
+    return (
+      nextProps.active === this.props.index ||
+      (!this.hasRender && nextProps.activated > this.props.index - 2) ||
+      (nextProps.transition && nextProps.prevActive === nextProps.index) //修复连续滑动bug
+    )
   }
   
   renderChild(children) {
