@@ -44,7 +44,6 @@ export class Swipe extends Component {
   
   componentDidMount() {
     let currentIndex = 0, slideLength = 0;
-    console.log(2222);
     this.swipe  = new Swiper(this.container, {
       mousewheelControl : true,
       effect            : this.props.effect,
