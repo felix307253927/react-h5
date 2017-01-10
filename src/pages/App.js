@@ -33,7 +33,7 @@ export default class App extends Component {
         <Audio src="/assets/audio/background.mp3"/>
         <Swipe onSlide={this.onSlide} ref={swipe=>this.swipe = swipe}>
           <SwiperSlide className="slide-1">
-            <Animate className="item-image" name="jello">
+            <Animate className="item-image" name="jello" delay="0.1s">
               <img style={{width:'100%'}} src="/assets/images/github-1.png" alt=""/>
             </Animate>
             <Animate className="item-text" name="lightSpeedIn" delay="0.3s">
@@ -41,7 +41,7 @@ export default class App extends Component {
             </Animate>
           </SwiperSlide>
           <SwiperSlide className="slide-2">
-            <Animate className="item-image" name="rollIn">
+            <Animate className="item-image" name="rollIn" delay="0.1s">
               <img style={{width:'100%'}} src="/assets/images/github-2.png" alt=""/>
             </Animate>
             <Animate className="item-text" name="flipInY" delay="0.3s">
@@ -49,7 +49,7 @@ export default class App extends Component {
             </Animate>
           </SwiperSlide>
           <SwiperSlide className="slide-3">
-            <Animate className="item-image" name="bounceInDown">
+            <Animate className="item-image" name="bounceInDown" delay="0.1s">
               <img style={{width:'100%'}} src="/assets/images/github-3.png" alt=""/>
             </Animate>
             <Animate className="item-text" name="bounceInUp" delay="0.3s">

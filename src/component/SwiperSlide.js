@@ -20,16 +20,23 @@ export class SwiperSlide extends Component {
   hasRender: boolean = false;
   
   shouldComponentUpdate(nextProps) {
-    return (
+    if (!this.props.toggle && (this.hasRender || nextProps.activated > this.props.index)) {
+      return false
+    }
+    if (
       nextProps.active === this.props.index ||
       (!this.hasRender && nextProps.activated > this.props.index - 2) ||
       (nextProps.transition && nextProps.prevActive === nextProps.index) //修复连续滑动bug
-    )
+    ) {
+      this.hasRender = nextProps.activated === this.props.index;
+      return true
+    }
+    return false
   }
   
   renderChild(children) {
     if (this.props.activated > this.props.index - 2) {
-      this.hasRender = true;
+      // this.hasRender = true;
       return React.Children.map(children, (child, i) => {
         if (child.type === Animate) {
           return React.cloneElement(child, {

@@ -12,12 +12,14 @@ import pureRender from 'pure-render-decorator'
 export class Swipe extends Component {
   
   static propTypes = {
+    toggle : React.PropTypes.bool,
     onSlide: React.PropTypes.func,
     effect : React.PropTypes.oneOf(['slide', 'fade', 'coverflow', 'flip'])
   };
   
   static defaultProps = {
-    effect: 'coverflow'
+    effect: 'coverflow',
+    toggle: false
   };
   
   isFirst: Boolean = false;
@@ -44,7 +46,7 @@ export class Swipe extends Component {
   
   componentDidMount() {
     let currentIndex = 0, slideLength = 0;
-    this.swipe  = new Swiper(this.container, {
+    this.swipe       = new Swiper(this.container, {
       mousewheelControl : true,
       effect            : this.props.effect,
       speed             : 400,
@@ -78,7 +80,7 @@ export class Swipe extends Component {
         this.setState({transition: false, active: currentIndex});
       }
     });
-    slideLength = this.swipe.slides.length;
+    slideLength      = this.swipe.slides.length;
   }
   
   render() {
@@ -91,6 +93,7 @@ export class Swipe extends Component {
               if (child.type === SwiperSlide) {
                 return React.cloneElement(child, {
                   ...this.state,
+                  toggle: this.props.toggle,
                   length: length,
                   index : i,
                   key   : 'slide-' + i++
