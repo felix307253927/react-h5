@@ -35,7 +35,7 @@ export class SwiperSlide extends Component {
     return false
   }
   
-  renderChild(children, n) {
+  renderChild(children) {
     if (this.props.activated > this.props.index - 2) {
       return React.Children.map(children, (child) => {
         if (child.type === Animate) {
@@ -47,7 +47,7 @@ export class SwiperSlide extends Component {
         } else {
           if (Array.isArray(child.props.children)) {
             return React.cloneElement(child, {
-              children: this.renderChild(child.props.children, 1)
+              children: this.renderChild(child.props.children)
             });
           }
           return child;
