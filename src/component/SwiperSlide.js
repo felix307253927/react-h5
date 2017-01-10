@@ -18,6 +18,7 @@ import Animate from './Animate'
 
 export class SwiperSlide extends Component {
   hasRender: boolean = false;
+  index: number      = 0;
   
   shouldComponentUpdate(nextProps) {
     if (!this.props.toggle && (this.hasRender || nextProps.activated > this.props.index)) {
@@ -34,17 +35,21 @@ export class SwiperSlide extends Component {
     return false
   }
   
-  renderChild(children) {
+  renderChild(children, n) {
     if (this.props.activated > this.props.index - 2) {
-      // this.hasRender = true;
-      return React.Children.map(children, (child, i) => {
+      return React.Children.map(children, (child) => {
         if (child.type === Animate) {
           return React.cloneElement(child, {
-            key       : 'ani-' + i,
+            key       : 'ani-' + this.index++,
             slide     : this.props.index,
             transition: this.props.active === this.props.index
           })
         } else {
+          if (Array.isArray(child.props.children)) {
+            return React.cloneElement(child, {
+              children: this.renderChild(child.props.children, 1)
+            });
+          }
           return child;
         }
       })
